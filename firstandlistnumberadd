@@ -1,0 +1,60 @@
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+let str = 'one8bdxplbtfninefourspqn,nineeight3fiveseven,xmkhttr64htgvhjfivefcjlzjqrsjlfivekbcnhqpzg'
+let line = str.split(',')
+let final = []
+line.forEach(el => {
+    let output = [] 
+    let revoutput = [] 
+    let numbers = ['zero','one','two','three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+    numbers.forEach(num => {
+        var re = new RegExp(num);
+        let nummatch = el.match(re)
+        if(nummatch !== null){
+            output.push(nummatch.index)
+        }
+        else
+            output.push(null)
+        })
+    
+    let forward = el.match(/[0-9]{1}/)
+    let revel = el.split('').reverse().join('')
+    let reverse = revel.match(/[0-9]{1}/)
+    if(forward !== null){
+        output.push(forward.index)
+    }
+    else{
+        output.push(null)
+    }
+    console.log(output)
+    let revnumbers = ['orez','eno','owt','eerht', 'ruof', 'evif', 'xis', 'neves', 'thgie', 'enin']
+    revnumbers.forEach(function(num, i) {
+        var re = new RegExp(num);
+        let nummatch = revel.match(re)
+        if(nummatch !== null ){
+            revoutput.push(el.length - nummatch.index - num.length)
+        }
+        else
+            revoutput.push(null)
+    })
+    if(reverse !== null)
+            revoutput.push(el.length - reverse.index - 1)
+                else{
+        revoutput.push(null)
+    }
+
+    console.log(revoutput)
+   let lowest = output.indexOf(Math.min.apply(Math, output.map(function(o){ 
+      return  o === null ?  Infinity :  o})));
+    let highest = revoutput.indexOf(Math.max.apply(Math, revoutput.map(function(o){ 
+      return  o === null ?  -Infinity :  o})));
+    if(highest === 10) highest = el[revoutput[highest]]
+    if(lowest === 10) lowest = el[output[lowest]]
+    final.push(lowest.toString() + highest.toString())
+    console.log(lowest)
+    console.log(highest)
+})
+console.log(final)
+let total = 0
+final.forEach(el => total = parseInt(total) + parseInt(el))
+console.log(total)
