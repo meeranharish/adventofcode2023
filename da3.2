@@ -3,17 +3,24 @@ let splloc = []
 let startPos = 0
 let endPos = 0
 let arr =[]
+let total = 0
 
 
 for (let index = 0; index < input.length; index++) {
     if (input[index] === '*')
         splloc.push(index + 1)
 }
-
-console.log(splloc)
+let linecont = false
 let num = ''
+let num2 = ''
 for (i = 0; i < input.length; i++) {
-    if (isFinite(input[i])) {
+    if(num != '' && (i+1)%140 ===1 && isFinite(input[i])){
+        linecont = true
+        num2 = input[i]
+        console.log('hello: ' + num + ':' + i)
+    }
+    if (isFinite(input[i]) && !linecont) {
+        if(i===9942)console.log('flag works' + num)
         num = num + input[i]
         if(startPos === 0)
         startPos = i + 1
@@ -55,7 +62,27 @@ for (i = 0; i < input.length; i++) {
             }
             num = ''
         }
+        if(linecont){
+            num = num2
+            console.log('2:' + num)
+            linecont = false
+        }
         startPos = 0
     }
 }
-console.log(arr)
+// console.log(arr)
+let out = []
+splloc.forEach(s => {
+    out = arr.filter((a) => parseInt(a.split(":")[3]) === s)
+    if(out.length === 2){
+
+        // console.log((out[0].split(':')[0] + '*' + out[1].split(':')[0] + '=' + out[0].split(':')[0] * out[1].split(':')[0]))
+        total = total + (out[0].split(':')[0] * out[1].split(':')[0])
+        // console.log(total)
+        // out.forEach(el => {
+        //     console.log(el)
+        //     console.log(el[1])
+        // })
+    }
+})
+console.log(total)
